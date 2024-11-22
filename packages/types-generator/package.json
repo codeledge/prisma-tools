@@ -1,0 +1,19 @@
+{
+  "name": "types-generator",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/typesGenerator.js",
+  "module": "./dist/typesGenerator.mjs",
+  "types": "./dist/typesGenerator.d.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "tsup ./typesGenerator.ts --format esm,cjs --watch --dts",
+    "lint": "TIMING=1 eslint src --fix",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.3"
+  }
+}
