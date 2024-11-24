@@ -1,11 +1,6 @@
 {
-  "globalEnv": [
-    "NEXTAUTH_SECRET",
-    "GOOGLE_CLIENT_ID",
-    "GOOGLE_CLIENT_SECRET",
-    "RESTRICT_EMAIL_DOMAIN"
-  ],
-  "pipeline": {
+  "globalEnv": [],
+  "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]

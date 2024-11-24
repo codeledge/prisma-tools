@@ -1,0 +1,3 @@
+# Prisma Client Types Generator
+
+Docs coming soon...

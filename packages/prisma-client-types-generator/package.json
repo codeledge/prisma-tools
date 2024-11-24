@@ -1,0 +1,58 @@
+{
+  "name": "prisma-client-types-generator",
+  "version": "0.0.1",
+  "description": "Generate safe types for the browser and other uses",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --treeshake",
+    "dev": "pnpm build --watch",
+    "lint": "eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "prepublish": "pnpm build",
+    "test": "pnpm prisma generate --schema test/schemas/full.prisma",
+    "release": "pnpm changeset && pnpm changeset version"
+  },
+  "files": [
+    "/dist"
+  ],
+  "keywords": [
+    "prisma",
+    "generator",
+    "types",
+    "safe",
+    "client"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeledge/prisma-tools.git",
+    "directory": "packages/prisma-client-types-generator"
+  },
+  "author": "Orlando Groppo <orlando.groppo@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "@prisma/client": ">=5",
+    "prisma": ">=5"
+  },
+  "dependencies": {
+    "@prisma/generator-helper": "^5.22.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
+    "@changesets/cli": "^2.27.10",
+    "@prisma/client": "^5.22.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.9.3",
+    "deverything": "^1.10.1",
+    "eslint-config-custom": "workspace:*",
+    "jest": "^29.7.0",
+    "prisma": "^5.22.0",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
