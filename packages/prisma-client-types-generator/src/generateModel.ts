@@ -1,6 +1,7 @@
 import { DMMF } from "@prisma/generator-helper";
-import { getPascalName } from "./getPascalName";
+import { formatEntityName } from "./formatEntityName";
 import { prismaTypeMap } from "./prismaTypeMap";
+import { PrismaClientTypesGeneratorConfig } from "./onGenerate";
 
 const formatNull = (field: DMMF.Field) => {
   return !field.isRequired ? " | null" : "";
@@ -17,11 +18,11 @@ const isBaseField = (field: DMMF.Field, foreignKeysMap: Record<string, 1>) => {
 
 export const generateModel = (
   model: DMMF.Model,
-  aliases?: Record<string, string>
+  config: PrismaClientTypesGeneratorConfig
 ) => {
   let out = "";
 
-  const modelTypeName = getPascalName(model.name, aliases); // TODO: use also model.dbName with alias?
+  const modelTypeName = formatEntityName(model.name, config); // TODO: use also model.dbName with alias?
 
   // console.log(model.fields);
 
@@ -66,9 +67,10 @@ export const generateModel = (
     }
     switch (field.kind) {
       case "enum":
-        out += `  ${field.name}: ${getPascalName(field.type)}${formatNull(
-          field
-        )}\n`;
+        out += `  ${field.name}: ${formatEntityName(
+          field.type,
+          config
+        )}${formatNull(field)}\n`;
         break;
       case "scalar":
       case "unsupported": // Untested
@@ -90,7 +92,7 @@ export const generateModel = (
   for (const field of model.fields) {
     switch (field.kind) {
       case "object":
-        out += `  ${field.name}: ${field.type}${
+        out += `  ${field.name}: ${formatEntityName(field.type, config)}${
           field.isList ? "[]" : ""
         }${formatNull(field)}\n`;
         break;

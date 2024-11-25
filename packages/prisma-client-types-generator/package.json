@@ -1,6 +1,6 @@
 {
   "name": "prisma-client-types-generator",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Generate safe types for the browser and other uses",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -13,12 +13,13 @@
     "dev": "pnpm build --watch",
     "lint": "eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "prepublish": "pnpm build",
-    "test": "pnpm prisma generate --schema test/schemas/full.prisma",
+    "prepublish": "pnpm test && pnpm build",
+    "test": "sh ./test/test.sh",
     "release": "pnpm changeset && pnpm changeset version"
   },
   "files": [
-    "/dist"
+    "/dist",
+    "test/schemas/full.snapshot.ts"
   ],
   "keywords": [
     "prisma",
@@ -54,6 +55,7 @@
     "jest": "^29.7.0",
     "prisma": "^5.22.0",
     "ts-node": "^10.9.2",
+    "tsd": "^0.31.2",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"

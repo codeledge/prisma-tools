@@ -1,5 +1,11 @@
 # prisma-client-types-generator
 
+## 0.1.0
+
+### Minor Changes
+
+- add test and config
+
 ## 0.0.3
 
 ### Patch Changes

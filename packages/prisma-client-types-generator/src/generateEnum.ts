@@ -1,13 +1,14 @@
 import { DMMF } from "@prisma/generator-helper";
-import { getPascalName } from "./getPascalName";
+import { formatEntityName } from "./formatEntityName";
+import { PrismaClientTypesGeneratorConfig } from "./onGenerate";
 
 export const generateEnum = (
   prismaEnum: DMMF.DatamodelEnum,
-  aliases?: Record<string, string>
+  config: PrismaClientTypesGeneratorConfig
 ) => {
   let out = "";
 
-  const name = getPascalName(prismaEnum.name, aliases);
+  const name = formatEntityName(prismaEnum.name, config);
 
   out += `export const ${name} = {\n`;
 

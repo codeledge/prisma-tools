@@ -8,7 +8,10 @@ generator client {
 }
 
 generator types {
-  provider = "tsx ./src/index"
+  provider   = "tsx ./src/index"
+  output     = "./full.generated.ts"
+  pascalCase = true
+  aliases    = "{\"Label\":\"Tag\"}"
 }
 
 model Post {
@@ -24,7 +27,7 @@ model Post {
   category   Category?     @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   categoryId Int?
   toMedia    PostToMedia[]
-  tags       Tag[]
+  tags       Label[]
   user       User          @relation(fields: [userId], references: [id])
   userId     String
 }
@@ -48,7 +51,8 @@ model Media {
   postToMedias PostToMedia[]
 }
 
-model Tag {
+// To be aliased
+model Label {
   id        Int       @id @default(autoincrement())
   name      String
   createdAt DateTime  @default(now())
@@ -123,7 +127,8 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model AdminUser {
+// To be PascalCased
+model admin_user {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
@@ -134,13 +139,13 @@ model AdminUser {
 }
 
 model Audit {
-  id       String     @id @default(cuid())
-  date     DateTime   @default(now())
+  id       String      @id @default(cuid())
+  date     DateTime    @default(now())
   resource String
   action   String
   payload  Json?
   authorId String?
-  author   AdminUser? @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author   admin_user? @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 enum Role {
