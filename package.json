@@ -7,11 +7,11 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "turbo run test",
-    "dev": "turbo run dev --parallel --no-cache",
     "build": "turbo run build",
-    "kill": "pnpm run kill --filter apps/*",
-    "publish-packages": "turbo run build lint && changeset version && changeset publish"
+    "dev": "turbo run dev --parallel --no-cache",
+    "prepublish": "pnpm build",
+    "release": "pnpm changeset && pnpm changeset version",
+    "test": "turbo run test"
   },
   "devDependencies": {
     "turbo": "^2.3.1"
