@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "ci:publish": "pnpm publish --no-git-checks",
+    "ci:publish": "pnpm publish --no-git-checks -r",
     "dev": "turbo run dev --parallel --no-cache",
     "prepublish": "pnpm build",
     "release": "pnpm changeset && pnpm changeset version",
