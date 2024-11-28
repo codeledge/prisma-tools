@@ -48,14 +48,14 @@ export const generateModel = (
       case "scalar":
         out += `  ${field.name}: ${prismaTypeMap.get(field.type)}${
           field.isList ? "[]" : ""
-        }${formatNull(field)}\n`;
+        }${formatNull(field)};\n`;
         break;
       default:
         break;
     }
   }
 
-  out += `}\n`;
+  out += `};\n`;
   out += "\n";
 
   // Create Values type
@@ -70,53 +70,54 @@ export const generateModel = (
         out += `  ${field.name}: ${formatEntityName(
           field.type,
           config
-        )}${formatNull(field)}\n`;
+        )}${formatNull(field)};\n`;
         break;
       case "scalar":
       case "unsupported": // Untested
         out += `  ${field.name}: ${prismaTypeMap.get(field.type)}${
           field.isList ? "[]" : ""
-        }${formatNull(field)}\n`;
+        }${formatNull(field)};\n`;
         break;
       default:
         break;
     }
   }
 
-  out += `}\n`;
+  out += `};\n`;
   out += "\n";
 
   // Create Relations type
-  out += `export type ${modelTypeName}Relations = {\n`;
+  out += `export type ${modelTypeName}${RELATIONS} = {\n`;
 
   for (const field of model.fields) {
     switch (field.kind) {
       case "object":
-        out += `  ${field.name}: ${formatEntityName(field.type, config)}${
-          field.isList ? "[]" : ""
-        }${formatNull(field)}\n`;
+        out += `  ${field.name}: ${formatEntityName(
+          field.type,
+          config
+        )}${EXTENDED}${field.isList ? "[]" : ""}${formatNull(field)};\n`;
         break;
       default:
         break;
     }
   }
 
-  out += `}\n`;
+  out += `};\n`;
   out += "\n";
 
   // Create DB type
-  out += `export type ${modelTypeName} = ${modelTypeName}Keys & ${modelTypeName}Values\n`;
+  out += `export type ${modelTypeName} = ${modelTypeName}Keys & ${modelTypeName}Values;\n`;
   out += "\n";
 
   // Create Extended type
-  out += `export type ${modelTypeName}Extended = ${modelTypeName} & ${modelTypeName}Relations\n`;
+  out += `export type ${modelTypeName}${EXTENDED} = ${modelTypeName} & ${modelTypeName}${RELATIONS};\n`;
   out += "\n";
 
   return out;
 };
 
 // Examples:
-// RELATION
+// RELATIONS
 // {
 //   name: 'author',
 //   kind: 'object',
@@ -134,3 +135,6 @@ export const generateModel = (
 //   isGenerated: false,
 //   isUpdatedAt: false
 // }
+
+const EXTENDED = "Extended";
+const RELATIONS = "Relations";

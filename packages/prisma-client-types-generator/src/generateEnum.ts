@@ -13,12 +13,12 @@ export const generateEnum = (
   out += `export const ${name} = {\n`;
 
   for (const value of prismaEnum.values) {
-    out += `  ${value.name}: '${value.name}',\n`;
+    out += `  ${value.name}: "${value.name}",\n`;
   }
 
   out += `} as const;\n`;
   out += "\n";
-  out += `export type ${name} = (typeof ${name})[keyof typeof ${name}]\n`;
+  out += `export type ${name} = (typeof ${name})[keyof typeof ${name}];\n`;
   out += "\n";
 
   return out;

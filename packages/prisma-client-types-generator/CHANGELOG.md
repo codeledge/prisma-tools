@@ -1,5 +1,11 @@
 # prisma-client-types-generator
 
+## 0.1.1
+
+### Patch Changes
+
+- format output
+
 ## 0.1.0
 
 ### Minor Changes
