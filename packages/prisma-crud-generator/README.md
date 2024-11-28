@@ -1,0 +1,3 @@
+# Prisma CRUD Generator
+
+Docs coming soon...
