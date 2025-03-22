@@ -1,5 +1,11 @@
 # prisma-client-types-generator
 
+## 1.0.0
+
+### Major Changes
+
+- Aliases as file
+
 ## 0.1.1
 
 ### Patch Changes

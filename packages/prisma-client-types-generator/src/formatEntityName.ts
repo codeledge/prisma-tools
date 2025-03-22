@@ -1,15 +1,12 @@
-import { PrismaClientTypesGeneratorConfig } from "./onGenerate";
-
-let aliasesMap: Record<string, string> | undefined;
+import { InternalGeneratorOptions } from "./onGenerate";
 
 export const formatEntityName = (
   rawEntityName: string,
-  { aliases, pascalCase }: PrismaClientTypesGeneratorConfig
+  { aliasMap, pascalCase }: InternalGeneratorOptions
 ) => {
-  if (aliases) {
-    aliasesMap = aliasesMap || JSON.parse(aliases);
-    if (rawEntityName in aliasesMap) {
-      return aliasesMap[rawEntityName];
+  if (aliasMap) {
+    if (rawEntityName in aliasMap) {
+      return aliasMap[rawEntityName];
     }
   }
 

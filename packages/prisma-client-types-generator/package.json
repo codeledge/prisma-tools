@@ -1,6 +1,6 @@
 {
   "name": "prisma-client-types-generator",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Generate safe types for the browser and other uses",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -10,10 +10,11 @@
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --treeshake",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "pnpm build --watch",
     "lint": "eslint src --fix",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "prepublish": "pnpm test && pnpm build",
+    "release": "pnpm changeset && pnpm changeset version",
     "test": "sh ./test/test.sh"
   },
   "files": [
@@ -34,28 +35,28 @@
   "author": "Orlando Groppo <orlando.groppo@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@prisma/client": ">=5",
-    "prisma": ">=5"
+    "@prisma/client": ">=6",
+    "prisma": ">=6"
   },
   "dependencies": {
-    "@prisma/generator-helper": "^5.22.0"
+    "@prisma/generator-helper": "^6.5.0"
   },
   "devDependencies": {
-    "@babel/core": "7.26.0",
-    "@babel/preset-env": "^7.26.0",
+    "@babel/core": "7.26.10",
+    "@babel/preset-env": "^7.26.9",
     "@babel/preset-typescript": "^7.26.0",
-    "@changesets/cli": "^2.27.10",
-    "@prisma/client": "^5.22.0",
+    "@changesets/cli": "^2.28.1",
+    "@prisma/client": "^6.5.0",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.9.3",
-    "deverything": "^1.10.1",
+    "@types/node": "^22.13.11",
+    "deverything": "^3.0.0",
     "eslint-config-custom": "workspace:*",
     "jest": "^29.7.0",
-    "prisma": "^5.22.0",
+    "prisma": "^6.5.0",
     "ts-node": "^10.9.2",
     "tsd": "^0.31.2",
-    "tsup": "^8.3.5",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "tsup": "^8.4.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
   }
 }

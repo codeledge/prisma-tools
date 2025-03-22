@@ -1,7 +1,7 @@
 import { DMMF } from "@prisma/generator-helper";
 import { formatEntityName } from "./formatEntityName";
 import { prismaTypeMap } from "./prismaTypeMap";
-import { PrismaClientTypesGeneratorConfig } from "./onGenerate";
+import { InternalGeneratorOptions } from "./onGenerate";
 
 const formatNull = (field: DMMF.Field) => {
   return !field.isRequired ? " | null" : "";
@@ -18,7 +18,7 @@ const isBaseField = (field: DMMF.Field, foreignKeysMap: Record<string, 1>) => {
 
 export const generateModel = (
   model: DMMF.Model,
-  config: PrismaClientTypesGeneratorConfig
+  config: InternalGeneratorOptions
 ) => {
   let out = "";
 

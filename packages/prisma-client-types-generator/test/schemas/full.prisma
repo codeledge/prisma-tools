@@ -11,7 +11,7 @@ generator types {
   provider   = "tsx ./src/index"
   output     = "./full.generated.ts"
   pascalCase = true
-  aliases    = "{\"Label\":\"Tag\"}"
+  aliases    = "./aliases.ts"
 }
 
 model Post {

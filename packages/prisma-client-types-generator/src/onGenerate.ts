@@ -8,20 +8,26 @@ import path from "node:path";
 
 export type PrismaClientTypesGeneratorConfig = {
   /**
-   *
-   *
+   * @description
+   * The path to a file that contains a record of aliases for the models.
    * @example
-   *
    * ```ts
-   * typeAliases = '{snake_case_model: SnakeCaseModel}
+   * aliases = "../aliases.ts"
    * ```
    *
    * @default undefined
    */
   aliases?: string;
-
-  // Whether to use PascalCase for the generated types.
+  /**
+   * @description
+   * Whether to use PascalCase for the generated types.
+   * @default undefined
+   */
   pascalCase?: boolean;
+};
+
+export type InternalGeneratorOptions = PrismaClientTypesGeneratorConfig & {
+  aliasMap?: Record<string, string>;
 };
 
 /** Runs the generator with the given options. */
@@ -31,10 +37,28 @@ export async function onGenerate(options: GeneratorOptions) {
     throw new Error("No output file specified");
   }
 
-  let output = generateTypes(
-    options.dmmf.datamodel,
-    options.generator.config as PrismaClientTypesGeneratorConfig
-  );
+  const config = options.generator.config as PrismaClientTypesGeneratorConfig;
+
+  let aliasMap: Record<string, string> | undefined;
+  if (config.aliases) {
+    try {
+      // Resolve the aliases path relative to the schema file location
+      const schemaDir = path.dirname(options.schemaPath);
+      const aliasesPath = path.resolve(schemaDir, config.aliases);
+
+      const aliasesModule = await import(aliasesPath);
+      aliasMap = aliasesModule.default;
+    } catch (error) {
+      throw new Error(
+        `Failed to load aliases from ${config.aliases}: ${error.message}`
+      );
+    }
+  }
+
+  let output = generateTypes(options.dmmf.datamodel, {
+    ...config,
+    aliasMap,
+  });
 
   const outputPath = path.resolve(outputFile.value);
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });

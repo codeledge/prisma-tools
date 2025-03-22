@@ -1,10 +1,10 @@
 import { DMMF } from "@prisma/generator-helper";
 import { formatEntityName } from "./formatEntityName";
-import { PrismaClientTypesGeneratorConfig } from "./onGenerate";
+import { InternalGeneratorOptions } from "./onGenerate";
 
 export const generateEnum = (
   prismaEnum: DMMF.DatamodelEnum,
-  config: PrismaClientTypesGeneratorConfig
+  config: InternalGeneratorOptions
 ) => {
   let out = "";
 
